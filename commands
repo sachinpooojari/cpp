@@ -1,0 +1,39 @@
+set expandtab shiftwidth=4 softtabstop=4
+
+check net : shebang
+
+
+live ovelflow gdb tools ______________-
+
+disassemble main
+
+set disassembly-flavor inte
+
+
+objdump -D file_name 
+objdump -x file_name | less   /// x to see every headder
+hexdump -C or -c file_name
+
+strings file_name // to show all strings
+
+
+strace ./file_name
+ltrace ./file_name
+
+radar2 
+
+
+r2 ./file_name
+aaa   //to analizy fn
+afl //analize and list function 
+s sys.main   //seek and point at main
+
+pdf // to disassembly code withproper comments
+VV // too visualize
+
+shift tab , tab to navigate
+shift p
+shift r 
+
+ 
+

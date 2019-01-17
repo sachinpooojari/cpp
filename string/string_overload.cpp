@@ -1,6 +1,7 @@
 #include<iostream>
 #include<string.h>
 #include<stdlib.h>
+#include<stdio.h>
 using namespace std;
 
 class my_string 
@@ -76,7 +77,33 @@ void my_string::print()
 //frnd:  >>  overloaded 	
 istream& operator >> (istream& in,my_string& s)
 {
-	in>>s.c;
+	FILE *fp;
+	fp=fopen("temp","w+");
+	char ch;
+	while(1)
+	{
+		if((ch=getchar())!='\n')
+			fputc(ch,fp);
+		else
+			break;	
+	}
+	
+	int count=ftell(fp);
+	rewind(fp);
+	delete[] s.c;
+
+	s.c=new char[count+1];
+
+	int i=0;	
+	while((ch=fgetc(fp))!=EOF)
+		s.c[i++]=ch;
+	s.c[i]=0;
+
+	
+	remove("temp");
+
+	return in;
+
 }
 
 //frnd:  <<  overloaded 	
@@ -134,7 +161,7 @@ my_string my_string::operator () (const my_string& s)
 my_string  operator + (const my_string&  s1,const my_string& s2)
 {
 	my_string temp;
-	temp.c= new char[ strlen(s1.c) + strlen(s2.c) +1 ]
+	temp.c= new char[ strlen(s1.c) + strlen(s2.c) +1 ];
 	strcpy(temp.c,s1.c);
 	strcat(temp.c,s2.c);
 	return temp; 		//may be memory leak
@@ -191,7 +218,11 @@ bool my_string::operator >= (const my_string& s )
 main()
 {
 	my_string s1,s2;
-	cout<<s1<<" "<<s2;
+	cin>>s1;
+	cin>>s2;
+	my_string s3;
+	s3=s1+s2;
+	cout<<s1<<" "<<s2<<" "<<s3<<endl;
 
 
 

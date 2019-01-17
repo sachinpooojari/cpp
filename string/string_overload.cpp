@@ -95,18 +95,24 @@ void Getline(istream& in,my_string& s)
 //memr: == overloaded
 my_string my_string:: operator = (const my_string& s)
 {
+	delete[] this->c;
+	this->c=new char[ strlen(s.c) +1 ];
 	strcpy(this->c,s.c);
 
 }
 
 my_string my_string:: operator = (const char *word)
-{
+{	
+	delete[] this->c;
+	this->c=new char[ strlen(word) +1 ];
 	strcpy(this->c,word);
 
 }
 //frnd:  ()  overloaded	
 my_string my_string:: operator () (const char *word)
-{
+{	
+	delete[] this->c;
+	this->c=new char[ strlen(word) +1 ];
 	for(int i=0;word[i];i++)
 		{
 			this->c[i]=word[i];
@@ -116,7 +122,9 @@ my_string my_string:: operator () (const char *word)
 }
 
 my_string my_string::operator () (const my_string& s)
-{
+{	
+	delete[] this->c;
+	this->c=new char[ strlen(s.c) +1 ];
 	strcpy(this->c,s.c);
 
 
@@ -126,9 +134,10 @@ my_string my_string::operator () (const my_string& s)
 my_string  operator + (const my_string&  s1,const my_string& s2)
 {
 	my_string temp;
+	temp.c= new char[ strlen(s1.c) + strlen(s2.c) +1 ]
 	strcpy(temp.c,s1.c);
 	strcat(temp.c,s2.c);
-	return temp;
+	return temp; 		//may be memory leak
 
 }
 bool my_string::operator > (const my_string& s )

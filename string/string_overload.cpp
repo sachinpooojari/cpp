@@ -1,15 +1,17 @@
 #include<iostream>
 #include<string.h>
 #include<stdlib.h>
-#define MAX 2000
 using namespace std;
+
+/*edited */
+
 class my_string 
 {
 	char *c;
 public:
 	my_string()
 	{
-		c=new char[MAX];
+		c=new char[1];
 		strcpy(c," ");
 	}
 	my_string(const char *s)

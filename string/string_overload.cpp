@@ -3,8 +3,6 @@
 #include<stdlib.h>
 using namespace std;
 
-/*edited */
-
 class my_string 
 {
 	char *c;
@@ -183,45 +181,13 @@ bool my_string::operator >= (const my_string& s )
 
 main()
 {
-/*	my_string s("vet");
-	s.print();	
-//	Getline(cin,s);
-	cin>>s;
-	cout<<"Enterd:   "<<s<<endl;
-	my_string s1("k");
-	s1=s;
-	cout<<"copied::   "<<s1<<endl;
-	
-	my_string s2;  ///mystring s2="vector"   ????
-	s2="Vector\n";
-	cout<<"=strig ovrld :    "<<s2<<endl;
-	
-	s1("hai");
-	cout<<"('') ovrld:   "<<s1<<endl;
-	s(s1);
+	my_string s1,s2;
+	cout<<s1<<" "<<s2;
 
-	cout<<"() ovrld:    "<<s<<endl;
-	
-	s=s1+s2;
-	cout<<"concatinated   "<<s<<endl;
-	
-	my_string s3("contr");	
-	cout<<"constr(''):   "<<s3<<endl;
-	my_string s4="contr";	
-	cout<<"contr= :''    "<<s4<<endl;
-	
-	my_string s5=s3;	
-	cout<<"contr = :    "<<s5<<endl;
-	
-	*/
 
-	my_string s1,s2,s3;
-	cin>>s1>>s2;
-	cout<<boolalpha;
-	cout<<"| > :  "<<(s1>s2)<<" | < : "<<(s1<s2)<<" | == :  "<<(s1==s2)<<" | >= : "<<(s1>=s2)<<" | <= :" <<(s1<=s2)<<endl;
-	
-	my_string *s;
-	s=new my_string ("jsijsijsi");  //s=operator new (&my_string)
-	cout<<endl<<*s<<"  "<<sizeof(my_string)<<endl;
-	delete s;
+
+
+
 }
+
+

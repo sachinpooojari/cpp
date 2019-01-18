@@ -28,8 +28,11 @@ public:
 	
 	}
 
-
-	void print();
+/*	~my_string()
+	{
+		delete[] c;
+	}
+*/	void print();
 	friend istream& operator >> (istream& in,my_string& s);
 	friend ostream& operator << (ostream& out,my_string& s);
 //	friend void Getline(istream& in,my_string& s);
@@ -37,18 +40,20 @@ public:
 	my_string operator = (const char *);
 	my_string operator () (const char *);
 	my_string operator () (const my_string& );
-	void* operator new(size_t size);//ho it cach size dont know 
-	void operator delete (void *);//ho it cach size dont know 
+//	void* operator new(size_t size);//ho it cach size dont know 
+//	void operator delete (void *);//ho it cach size dont know 
 
 	bool operator > (const my_string& );
 	bool operator < (const my_string& );
 	bool operator == (const my_string& );
 	bool operator >= (const my_string& );
 	bool operator <= (const my_string& );
-	friend my_string operator + ( const my_string& s1,const  my_string& s2);
+	my_string operator + ( const  my_string& s2);
+	my_string operator + ( const  char* s2);
+	void operator += (const  my_string& s2);
 
 };
-
+/*
 void* my_string ::operator new(size_t size)
 {
 	cout<<"string overloaded new "<<size<<endl;
@@ -62,7 +67,7 @@ void my_string ::operator delete (void *p)
 
 	free(p);
 }
-
+*/
 
 
 
@@ -158,15 +163,34 @@ my_string my_string::operator () (const my_string& s)
 }
 
 //memr: + overload 
-my_string  operator + (const my_string&  s1,const my_string& s2)
+my_string my_string::  operator + (const my_string& s2)
 {
 	my_string temp;
-	temp.c= new char[ strlen(s1.c) + strlen(s2.c) +1 ];
-	strcpy(temp.c,s1.c);
+	temp.c= new char[ strlen(this->c) + strlen(s2.c) +1 ];
+	strcpy(temp.c,this->c);
 	strcat(temp.c,s2.c);
+	return temp; 		//may be memory leak  bcz returning large data ...reciver may not have such
+
+}
+
+my_string my_string:: operator + (const char* s2)
+{
+	my_string temp;
+	temp.c= new char[ strlen(this->c) + strlen(s2) +1 ];
+	strcpy(temp.c,this->c);
+	strcat(temp.c,s2);
 	return temp; 		//may be memory leak
 
 }
+void my_string:: operator += (const  my_string& s2)
+{
+	my_string temp(*this);
+	delete[] this->c;	
+	this->c= new char [ ( sizeof temp.c + sizeof s2.c) +1 ];
+//	strcpy(this->c,temp.c);
+//	strcat(this->c,s2.c);
+}
+
 bool my_string::operator > (const my_string& s )
 {
 	
@@ -221,7 +245,7 @@ main()
 	cin>>s1;
 	cin>>s2;
 	my_string s3;
-	s3=s1+s2;
+	s1+=s2;
 	cout<<s1<<" "<<s2<<" "<<s3<<endl;
 
 

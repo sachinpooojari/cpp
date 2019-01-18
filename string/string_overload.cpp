@@ -7,7 +7,7 @@ using namespace std;
 class my_string 
 {
 	char *c;
-public:
+	public:
 
 
 	my_string()
@@ -21,24 +21,24 @@ public:
 		c=new char[strlen(s)+1];
 		for(int i=0;c[i]=s[i];i++);
 
-		
-			
+
+
 	}
 
 	my_string(const my_string& s)
 	{	cout<<"copy"<<endl;
 		c=new char[strlen(s)+1];
 		for(int i=0;c[i]=s.c[i];i++);
-		
-	
+
+
 	}
-/*
-	~my_string()
-	{
-		cout<<"des"<<endl;
-		delete[] c;
-	}
-*/
+	/*
+	   ~my_string()
+	   {
+	   cout<<"des"<<endl;
+	   delete[] c;
+	   }
+	   */
 	friend istream& operator >> (istream& in,my_string& s);
 	friend ostream& operator << (ostream& out,my_string& s);
 	friend istream& getline (istream& in,my_string& s);
@@ -159,14 +159,14 @@ my_string my_string:: operator = (const my_string& s)
 		this->c[i]=s.c[i];
 	this->c[i]=s.c[i];
 	return *this;
-//	this->c=s.c; //   wrong approch since here address is passed not data
+	//	this->c=s.c; //   wrong approch since here address is passed not data
 }
 
 my_string my_string:: operator = (const char *word)
 {	
 	delete[] this->c;
 	this->c=new char[ strlen(word) +1 ];
-//	strcpy(this->c,word); only once overload = without fn so next time can be used
+	//	strcpy(this->c,word); only once overload = without fn so next time can be used
 	int i;
 	for( i=0;word[i];i++)
 		this->c[i]=word[i];
@@ -181,10 +181,10 @@ my_string my_string:: operator () (const char *word)
 	delete[] this->c;
 	this->c=new char[ strlen(word) +1 ];
 	for(int i=0;word[i];i++)
-		{
-			this->c[i]=word[i];
-		}
-	
+	{
+		this->c[i]=word[i];
+	}
+
 }
 
 my_string my_string::operator () (const my_string& s)
@@ -208,7 +208,7 @@ my_string& my_string::  operator + (const my_string& s2)
 	for(j=0;temp.c[i]=s2.c[i];j++);
 	return temp; 		//may be memory leak  bcz returning large data ...reciver may not have such
 
-	
+
 
 }
 
@@ -252,7 +252,7 @@ bool my_string::operator > (const my_string& s )
 
 bool my_string::operator < (const my_string& s )
 {
-	
+
 	if(cmp(s)<0)
 		return true;
 	else 
@@ -263,7 +263,7 @@ bool my_string::operator < (const my_string& s )
 /*******************************************| == ovrload  |********************************************************/
 bool my_string::operator == (const my_string& s )
 {
-	
+
 	if(cmp(s)==0)
 		return true;
 	else 
@@ -273,7 +273,7 @@ bool my_string::operator == (const my_string& s )
 /*******************************************| <= ovrload  |********************************************************/
 bool my_string::operator <= (const my_string& s )
 {
-	
+
 	if( cmp(s)<0 || cmp( s )==0)
 		return true;
 	else 
@@ -283,7 +283,7 @@ bool my_string::operator <= (const my_string& s )
 /*******************************************| >= ovrload  |********************************************************/
 bool my_string::operator >= (const my_string& s )
 {
-	
+
 	if( cmp(s)>0 || cmp( s )==0)
 		return true;
 	else 
@@ -329,7 +329,7 @@ unsigned int  my_string:: capacity(void  )
 /*******************************************|  resize() function  |********************************************************/
 void my_string:: resize(int size)
 {
-	
+
 	my_string temp(*this);		// temp to holde data untill allocate memory to this pointer.
 	delete[] this->c;
 	this->c= new char [ size + 1];
@@ -371,16 +371,16 @@ char my_string :: cmp(const my_string& s)
 main()
 {
 	my_string s1,s2(s1),*s4,s3;
-//	getline(cin,s1);
+	//	getline(cin,s1);
 	cin>>s1;
 	cin>>s2;
-//	s4 =new my_string;
-//	cin>>s2;
-//	s1.push_back('a');
-//	s2.pop_back();
-//	s1.resize(5);
-//	cout<<"cap ="<<s1.capacity()<<endl;
-//	cout<<"> "<<(s1>s2)<<" < "<<(s1<s2)<<" ="<<(s1==s2)<<endl;
+	//	s4 =new my_string;
+	//	cin>>s2;
+	//	s1.push_back('a');
+	//	s2.pop_back();
+	//	s1.resize(5);
+	//	cout<<"cap ="<<s1.capacity()<<endl;
+	//	cout<<"> "<<(s1>s2)<<" < "<<(s1<s2)<<" ="<<(s1==s2)<<endl;
 	s3="a";
 	s3+=s2;
 	cout<<s1<<" "<<s2<<" "<<s3<<endl;

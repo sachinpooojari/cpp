@@ -1,5 +1,5 @@
 #include<iostream>
-//#include<string.h>
+#include<string.h>
 #include<stdlib.h>
 #include<stdio.h>
 using namespace std;
@@ -8,34 +8,28 @@ class my_string
 {
 	char *c;
 public:
-
-
 	my_string()
 	{	cout<<"def"<<endl;
 		c=new char[1];
-		c[0]=' ';
+		strcpy(c," ");
 	}
-
 	my_string(const char *s)
 	{	cout<<"par"<<endl;
 		c=new char[strlen(s)+1];
-		for(int i=0;c[i]=s[i];i++);
-
-		
+		strcpy(c,s);
 			
 	}
 
 	my_string(const my_string& s)
 	{	cout<<"copy"<<endl;
-		c=new char[strlen(s)+1];
-		for(int i=0;c[i]=s.c[i];i++);
+		c=new char[strlen(s.c)+1];
+		strcpy(c,s.c);
 		
 	
 	}
-/*
-	~my_string()
+
+/*	~my_string()
 	{
-		cout<<"des"<<endl;
 		delete[] c;
 	}
 */
@@ -48,26 +42,20 @@ public:
 	my_string operator = (const char *);
 	my_string operator () (const char *);
 	my_string operator () (const my_string& );
-	void* operator new(size_t size);//ho it cach size dont know 
-	void operator delete (void *);//ho it cach size dont know 
+//	void* operator new(size_t size);//ho it cach size dont know 
+//	void operator delete (void *);//ho it cach size dont know 
 
 	bool operator > (const my_string& );
 	bool operator < (const my_string& );
 	bool operator == (const my_string& );
 	bool operator >= (const my_string& );
 	bool operator <= (const my_string& );
-	my_string& operator + ( const  my_string& s2);
+	my_string operator + ( const  my_string& s2);
 	my_string operator + ( const  char* s2);
 	void operator += (const  my_string& s2);
-	
-	void push_back(const char );
-	void pop_back(void );
-	unsigned int capacity(void  );
-	void  resize(int size);
-	int strlen(const my_string& );
-	int strlen(const char * );
-	char  cmp(const my_string& s);
+
 };
+/*
 void* my_string ::operator new(size_t size)
 {
 	cout<<"string overloaded new "<<size<<endl;
@@ -81,6 +69,7 @@ void my_string ::operator delete (void *p)
 
 	free(p);
 }
+*/
 
 
 
@@ -164,33 +153,28 @@ ostream& operator << (ostream& out,my_string& s)
 }
 
 
+/*
+//frnd: getline funtion implemment
+void Getline(istream& in,my_string& s)
+{	getline(in,s.c)	
+}
+*/
 
 
 //memr: == overloaded
 my_string my_string:: operator = (const my_string& s)
 {
 	delete[] this->c;
-	this->c=new char[ strlen(s) +1 ];
-	int i;
-	
-	for( i=0;s.c[i];i++)
-		this->c[i]=s.c[i];
-	this->c[i]=s.c[i];
-	return *this;
-//	this->c=s.c; //   wrong approch since here address is passed not data
+	this->c=new char[ strlen(s.c) +1 ];
+	strcpy(this->c,s.c);
+
 }
 
 my_string my_string:: operator = (const char *word)
 {	
 	delete[] this->c;
 	this->c=new char[ strlen(word) +1 ];
-//	strcpy(this->c,word); only once overload = without fn so next time can be used
-	int i;
-	for( i=0;word[i];i++)
-		this->c[i]=word[i];
-	this->c[i]=word[i];
-	cout<<"= ovrload"<<endl;	
-	return *this;
+	strcpy(this->c,word);
 
 }
 //frnd:  ()  overloaded	
@@ -202,31 +186,27 @@ my_string my_string:: operator () (const char *word)
 		{
 			this->c[i]=word[i];
 		}
+//	strcpy(this->c,word);
 	
 }
 
 my_string my_string::operator () (const my_string& s)
 {	
 	delete[] this->c;
-	this->c=new char[ strlen(s) +1 ];
-	*this=s;
+	this->c=new char[ strlen(s.c) +1 ];
+	strcpy(this->c,s.c);
+
 
 }
 
 //memr: + overload 
-my_string& my_string::  operator + (const my_string& s2)
+my_string my_string::  operator + (const my_string& s2)
 {
-	static my_string temp;
-	temp.c= new char[ strlen(*this) + strlen(s2) +1 ];
-	//strcpy(temp.c,this->c);
-	//strcat(temp.c,s2.c);
-	temp=*this;
-	int i=0,j=0;
-	for(i=0;temp.c[i];i++);
-	for(j=0;temp.c[i]=s2.c[i];j++);
+	my_string temp;
+	temp.c= new char[ strlen(this->c) + strlen(s2.c) +1 ];
+	strcpy(temp.c,this->c);
+	strcat(temp.c,s2.c);
 	return temp; 		//may be memory leak  bcz returning large data ...reciver may not have such
-
-	
 
 }
 
@@ -234,31 +214,27 @@ my_string my_string:: operator + (const char* s2)
 {
 
 	my_string temp;
-	temp.c= new char[ strlen(*this) + strlen(s2) +1 ];
-	temp=*this;
-	//strcat(temp.c,s2);
-	int i=0,j=0;
-	for(i=0;temp.c[i];i++);
-	for(j=0;temp.c[i]=s2[i];j++);
+	temp.c= new char[ strlen(this->c) + strlen(s2) +1 ];
+	strcpy(temp.c,this->c);
+	strcat(temp.c,s2);
 	return temp; 		//may be memory leak
 
 }
+
 
 void my_string:: operator += (const  my_string& s2)
 {
 	my_string temp(*this);
 	delete[] this->c;	
-	this->c= new char [  strlen( temp) + strlen(s2) +1 ];
-	*this=temp;	
-	int i=0,j=0;
-	for(i=0;temp.c[i];i++);
-	for(j=0;temp.c[i]=s2.c[i];j++);
+	this->c= new char [ ( sizeof temp.c + sizeof s2.c) +1 ];
+//	strcpy(this->c,temp.c);
+//	strcat(this->c,s2.c);
 }
-
 
 bool my_string::operator > (const my_string& s )
 {
-	if(cmp(s)>0)
+	
+	if(strcmp(c,s.c)>0)
 		return true;
 	else 
 		return false;
@@ -267,7 +243,7 @@ bool my_string::operator > (const my_string& s )
 bool my_string::operator < (const my_string& s )
 {
 	
-	if(cmp(s)<0)
+	if(strcmp(c,s.c)<0)
 		return true;
 	else 
 		return false;
@@ -277,7 +253,7 @@ bool my_string::operator < (const my_string& s )
 bool my_string::operator == (const my_string& s )
 {
 	
-	if(cmp(s)==0)
+	if(strcmp(c,s.c)==0)
 		return true;
 	else 
 		return false;
@@ -286,7 +262,7 @@ bool my_string::operator == (const my_string& s )
 bool my_string::operator <= (const my_string& s )
 {
 	
-	if( cmp(s)<0 || cmp( s )==0)
+	if( strcmp(c,s.c)<0 || strcmp(c, s.c )==0)
 		return true;
 	else 
 		return false;
@@ -295,101 +271,22 @@ bool my_string::operator <= (const my_string& s )
 bool my_string::operator >= (const my_string& s )
 {
 	
-	if( cmp(s)>0 || cmp( s )==0)
+	if( strcmp(c,s.c)>0 || strcmp(c, s.c )==0)
 		return true;
 	else 
 		return false;
 }
 
-void my_string:: push_back(const char ch )
-{
-	my_string temp(*this);		// temp to holde data untill allocate memory to this pointer.
-	delete[] this->c;
-	this->c= new char [ strlen(temp) + 1 + 1];
-	int i;
-	for( i=0;temp.c[i];i++);
-	temp.c[i++]=ch;
-	temp.c[i]=0;
-	*this=temp;	
-}
-
-
-
-void my_string:: pop_back(void  )
-{
-	my_string temp(*this);		// temp to holde data untill allocate memory to this pointer.
-	delete[] this->c;
-	this->c= new char [ strlen(temp) + 1 + 1];
-	int i;
-	for( i=0;temp.c[i];i++);
-	i=i-1;
-	temp.c[i]=0;
-	*this=temp;	
-
-}
-
-unsigned int  my_string:: capacity(void  )
-{
-	return strlen(*this);
-
-}
-
-void my_string:: resize(int size)
-{
-	
-	my_string temp(*this);		// temp to holde data untill allocate memory to this pointer.
-	delete[] this->c;
-	this->c= new char [ size + 1];
-	int i;
-	for(i=0;i<size;i++)
-	{
-		this->c[i]=temp.c[i];	
-	}
-	this->c[i]=0;
-
-}
-int  my_string:: strlen(const my_string& s )
-{
-	int i;
-	for(i=0;i<s.c[i];i++);
-	return i;
-}
-
-
-int  my_string:: strlen(const char* s )
-{
-	int i;
-	for(i=0;i<s[i];i++);
-	return i;
-}
-
-
-char my_string :: cmp(const my_string& s)
-{	int i=0;
-	for(i=0;(this->c[i]==s.c[i]  && c[i]!=0 );i++);
-	return (this->c[i]-s.c[i]);   //0  equal  |  +ve a>b   | -ve a<b
-
-}
 
 
 main()
 {
-	my_string s1,s2(s1),*s4,s3;
-//	getline(cin,s1);
+	my_string s1,s2;
 	cin>>s1;
-	cin>>s2;
-//	s4 =new my_string;
+	getline(cin,s2);
 //	cin>>s2;
-//	s1.push_back('a');
-//	s2.pop_back();
-//	s1.resize(5);
-//	cout<<"cap ="<<s1.capacity()<<endl;
-//	cout<<"> "<<(s1>s2)<<" < "<<(s1<s2)<<" ="<<(s1==s2)<<endl;
-	s3="a";
-	s3+=s2;
-	cout<<s1<<" "<<s2<<" "<<s3<<endl;
-
-
+	s1=s1+s2;
+	cout<<s1<<" "<<s2<<" "<<endl;
 
 
 }

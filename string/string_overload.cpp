@@ -205,7 +205,7 @@ my_string& my_string::  operator + (const my_string& s2)
 	temp=*this;
 	int i=0,j=0;
 	for(i=0;temp.c[i];i++);
-	for(j=0;temp.c[i]=s2.c[i];j++);
+	for(j=0;temp.c[i]=s2.c[j];j++,i++);
 	return temp; 		//may be memory leak  bcz returning large data ...reciver may not have such
 
 
@@ -221,7 +221,7 @@ my_string my_string:: operator + (const char* s2)
 	//strcat(temp.c,s2);
 	int i=0,j=0;
 	for(i=0;temp.c[i];i++);
-	for(j=0;temp.c[i]=s2[i];j++);
+	for(j=0;temp.c[i]=s2[j];j++,i++);
 	return temp; 		//may be memory leak
 
 }
@@ -234,8 +234,8 @@ void my_string:: operator += (const  my_string& s2)
 	this->c= new char [  strlen( temp) + strlen(s2) +1 ];
 	*this=temp;	
 	int i=0,j=0;
-	for(i=0;temp.c[i];i++);
-	for(j=0;temp.c[i]=s2.c[i];j++);
+	for(i=0;this->c[i];i++);
+	for(j=0;this->c[i]=s2.c[j];j++,i++);
 }
 
 /*******************************************| > ovrload  |********************************************************/
@@ -380,9 +380,9 @@ main()
 	//	s2.pop_back();
 	//	s1.resize(5);
 	//	cout<<"cap ="<<s1.capacity()<<endl;
-	//	cout<<"> "<<(s1>s2)<<" < "<<(s1<s2)<<" ="<<(s1==s2)<<endl;
+		cout<<">"<<(s1>s2)<<" < "<<(s1<s2)<<" ="<<(s1==s2)<<endl;
 	s3="a";
-	s3+=s2;
+	s2+=s1;
 	cout<<s1<<" "<<s2<<" "<<s3<<endl;
 
 

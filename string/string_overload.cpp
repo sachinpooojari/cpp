@@ -11,13 +11,13 @@ class my_string
 
 
 	my_string()
-	{	cout<<"def"<<endl;
+	{	//cout<<"def"<<endl;
 		c=new char[1];
 		c[0]=' ';
 	}
 
 	my_string(const char *s)
-	{	cout<<"par"<<endl;
+	{	//cout<<"par"<<endl;
 		c=new char[strlen(s)+1];
 		for(int i=0;c[i]=s[i];i++);
 
@@ -26,7 +26,7 @@ class my_string
 	}
 
 	my_string(const my_string& s)
-	{	cout<<"copy"<<endl;
+	{	//cout<<"copy"<<endl;
 		c=new char[strlen(s)+1];
 		for(int i=0;c[i]=s.c[i];i++);
 
@@ -232,10 +232,13 @@ void my_string:: operator += (const  my_string& s2)
 	my_string temp(*this);
 	delete[] this->c;	
 	this->c= new char [  strlen( temp) + strlen(s2) +1 ];
-	*this=temp;	
-	int i=0,j=0;
+	*this=temp;
+	*this=*this+s2;
+/*	int i=0,j=0;
 	for(i=0;this->c[i];i++);
 	for(j=0;this->c[i]=s2.c[j];j++,i++);
+*/
+
 }
 
 /*******************************************| > ovrload  |********************************************************/

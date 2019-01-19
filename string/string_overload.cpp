@@ -48,7 +48,7 @@ class my_string
 	my_string operator () (const my_string& );
 	void* operator new(size_t size);//ho it cach size dont know 
 	void operator delete (void *);//ho it cach size dont know 
-	bool operator > (const my_string& );
+	bool operator > ( const my_string& );
 	bool operator < (const my_string& );
 	bool operator == (const my_string& );
 	bool operator >= (const my_string& );
@@ -243,7 +243,7 @@ void my_string:: operator += (const  my_string& s2)
 
 /*******************************************| > ovrload  |********************************************************/
 
-bool my_string::operator > (const my_string& s )
+bool my_string::operator >  (const my_string& s ) 
 {
 	if(cmp(s)>0)
 		return true;
@@ -277,7 +277,7 @@ bool my_string::operator == (const my_string& s )
 bool my_string::operator <= (const my_string& s )
 {
 
-	if( cmp(s)<0 || cmp( s )==0)
+	if( cmp(s)<0 || cmp(s)==0)
 		return true;
 	else 
 		return false;
@@ -365,8 +365,8 @@ int  my_string:: strlen(const char* s )
 /*******************************************|  strcmp() function  |********************************************************/
 char my_string :: cmp(const my_string& s)
 {	int i=0;
-	for(i=0;(this->c[i]==s.c[i]  && c[i]!=0 );i++);
-	return (this->c[i]-s.c[i]);   //0  equal  |  +ve a>b   | -ve a<b
+	for(i=0; (this->c[i]==s.c[i]  && c[i]!=0 )  ;i++);
+	return ( this->c[i] - s.c[i] );   //0  equal  |  +ve a>b   | -ve a<b
 
 }
 
@@ -383,7 +383,7 @@ main()
 	//	s2.pop_back();
 	//	s1.resize(5);
 	//	cout<<"cap ="<<s1.capacity()<<endl;
-		cout<<">"<<(s1>s2)<<" < "<<(s1<s2)<<" ="<<(s1==s2)<<endl;
+		cout<<">"<<(s1>s2)<<" < "<<(s1<s2)<<" ="<<(s1==s2)<<" <="<<(s1<=s2)<<" >="<<(s1>=s2)<<endl;
 	s3="a";
 	s2+=s1;
 	cout<<s1<<" "<<s2<<" "<<s3<<endl;

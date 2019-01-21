@@ -32,13 +32,13 @@ class my_string
 
 
 	}
-	/*
+	
 	   ~my_string()
 	   {
 	   cout<<"des"<<endl;
 	   delete[] c;
 	   }
-	   */
+	   
 	friend istream& operator >> (istream& in,my_string& s);
 	friend ostream& operator << (ostream& out,my_string& s);
 	friend istream& getline (istream& in,my_string& s);
@@ -373,7 +373,7 @@ char my_string :: cmp(const my_string& s)
 
 main()
 {
-	my_string s1,s2(s1),*s4,s3;
+	my_string s1,s2(s1),s4,s3;
 	//	getline(cin,s1);
 	cin>>s1;
 	cin>>s2;
@@ -384,8 +384,10 @@ main()
 	//	s1.resize(5);
 	//	cout<<"cap ="<<s1.capacity()<<endl;
 		cout<<">"<<(s1>s2)<<" < "<<(s1<s2)<<" ="<<(s1==s2)<<" <="<<(s1<=s2)<<" >="<<(s1>=s2)<<endl;
-	s3="a";
-	s2+=s1;
+
+	cin>>s1>>s2;
+	s3=s1+s2+"ZZZ";
+	s4=s3;
 	cout<<s1<<" "<<s2<<" "<<s3<<endl;
 
 
